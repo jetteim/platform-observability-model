@@ -23,6 +23,7 @@ required_files=(
   docs/migration/sre-rules-seed.md
   docs/migration/sre-rules-to-slo-intents.md
   docs/sources/source-scan-summary.md
+  docs/usage-scenarios/service-onboarding-to-observability.md
 )
 
 for file in "${required_files[@]}"; do

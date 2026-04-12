@@ -13,6 +13,7 @@ This repository documents the intended operating model first. Backend-specific m
 - Unified SLO intent that can generate telemetry backend artifacts.
 - DevEx enforcement through local validation, CI, Helm contracts, and admission policy.
 - Migration seed for existing SRE rules into platform-agnostic SLO and alert intent.
+- Agent-first usage scenarios with human review gates.
 
 ## Principles
 
@@ -31,3 +32,6 @@ This repository documents the intended operating model first. Backend-specific m
 
 The validator checks that required model files exist, JSON schemas parse, YAML examples parse, and intention docs do not accidentally become vendor-specific implementation docs.
 
+## Usage Scenarios
+
+- [Service Onboarding To Observability](docs/usage-scenarios/service-onboarding-to-observability.md) shows how an agent should use the model to prepare service observability while keeping human approval gates explicit.
