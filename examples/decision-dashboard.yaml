@@ -1,0 +1,29 @@
+apiVersion: observability.platform/v1alpha1
+kind: DecisionDashboard
+metadata:
+  name: route-backend-readiness-decision-dashboard
+variables:
+  - alert_time
+  - application
+  - service
+  - environment
+  - namespace
+  - route
+  - workload
+  - deployment_id
+questions:
+  - Is traffic currently arriving?
+  - Is traffic reaching ready backends?
+  - Did readiness fail after a deployment or config change?
+  - Are users seeing errors or frustration?
+  - What playbook action applies?
+panels:
+  - route traffic
+  - service endpoints
+  - desired versus ready replicas
+  - rollout timeline
+  - recent platform events
+  - correlated logs and traces
+  - RUM impact
+  - SLO burn rate
+

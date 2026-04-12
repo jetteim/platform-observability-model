@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/platform-observability/generated-artifact-manifest.schema.json",
+  "title": "Generated Artifact Manifest",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "sourceIntent", "artifacts"],
+  "properties": {
+    "apiVersion": { "const": "observability.platform/v1alpha1" },
+    "kind": { "const": "GeneratedArtifactManifest" },
+    "metadata": {
+      "type": "object",
+      "required": ["name"],
+      "properties": { "name": { "type": "string" } }
+    },
+    "sourceIntent": { "type": "string" },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "path", "backendTarget"],
+        "properties": {
+          "type": { "type": "string" },
+          "path": { "type": "string" },
+          "backendTarget": { "type": "string" }
+        }
+      }
+    }
+  }
+}
+

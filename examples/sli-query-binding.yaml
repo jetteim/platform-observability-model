@@ -1,0 +1,14 @@
+apiVersion: observability.platform/v1alpha1
+kind: SLIQueryBinding
+metadata:
+  name: checkout-api-availability-http-requests
+signal: metric
+query:
+  numerator: Requests where service.name=checkout-api and status is not server error.
+  denominator: Requests where service.name=checkout-api.
+  groupBy:
+    - service.name
+    - deployment.environment.name
+  minimumVolume: at least 100 requests per evaluation window
+backendTarget: generic-metrics-backend
+

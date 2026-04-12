@@ -1,0 +1,28 @@
+apiVersion: observability.platform/v1alpha1
+kind: PlatformObservability
+metadata:
+  name: generic-kubernetes-platform
+platform:
+  topology:
+    - platform
+    - cluster
+    - namespace
+    - node
+    - workload
+    - pod
+    - container
+    - route
+  enforcement:
+    - schema
+    - ci
+    - helm
+    - admission
+    - runtime
+signals:
+  - workload_health
+  - route_backend_readiness
+  - capacity_pressure
+  - control_plane_health
+  - telemetry_pipeline_health
+  - policy_drift
+

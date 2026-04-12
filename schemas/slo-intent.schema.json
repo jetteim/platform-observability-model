@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/platform-observability/slo-intent.schema.json",
+  "title": "SLO Intent",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "target", "sli", "objective", "telemetryBinding", "burnRatePolicy"],
+  "properties": {
+    "apiVersion": { "const": "observability.platform/v1alpha1" },
+    "kind": { "const": "SLOIntent" },
+    "metadata": {
+      "type": "object",
+      "required": ["name"],
+      "properties": { "name": { "type": "string" } }
+    },
+    "target": {
+      "type": "object",
+      "required": ["application", "service", "environment"],
+      "properties": {
+        "application": { "type": "string" },
+        "service": { "type": "string" },
+        "environment": { "type": "string" },
+        "userJourney": { "type": "string" }
+      }
+    },
+    "sli": {
+      "type": "object",
+      "required": ["type", "successCondition", "evaluationBasis"],
+      "properties": {
+        "type": { "type": "string" },
+        "successCondition": { "type": "string" },
+        "evaluationBasis": { "enum": ["event", "request", "time-slice"] }
+      }
+    },
+    "objective": {
+      "type": "object",
+      "required": ["target", "window"],
+      "properties": {
+        "target": { "type": "number" },
+        "window": { "type": "string" }
+      }
+    },
+    "telemetryBinding": { "type": "string" },
+    "burnRatePolicy": { "type": "string" }
+  }
+}
+

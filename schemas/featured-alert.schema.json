@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/platform-observability/featured-alert.schema.json",
+  "title": "Featured Alert Intent",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "classification", "criteria", "context", "dashboard", "playbook"],
+  "properties": {
+    "apiVersion": { "const": "observability.platform/v1alpha1" },
+    "kind": { "const": "FeaturedAlert" },
+    "metadata": {
+      "type": "object",
+      "required": ["name"],
+      "properties": { "name": { "type": "string" } }
+    },
+    "classification": { "enum": ["alert", "notification", "finding"] },
+    "criteria": { "type": "array", "items": { "type": "string" } },
+    "context": { "type": "array", "items": { "type": "string" } },
+    "dashboard": { "type": "string" },
+    "playbook": { "type": "string" }
+  }
+}
+

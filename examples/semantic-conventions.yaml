@@ -1,0 +1,29 @@
+version: 2026-04-12
+attributes:
+  - name: service.name
+    source: opentelemetry
+    purpose: Stable service identity.
+    cardinality: low
+    owner: platform-observability
+    enforcement: [schema, ci, helm, admission, runtime]
+  - name: deployment.environment.name
+    source: opentelemetry
+    purpose: Deployment environment taxonomy.
+    cardinality: bounded
+    allowedValues: [development, preview, staging, production]
+    owner: platform-observability
+    enforcement: [schema, ci, admission, runtime]
+  - name: org.team.name
+    source: organization
+    purpose: Owning team for routing and escalation.
+    cardinality: bounded
+    owner: platform-observability
+    enforcement: [schema, ci, helm, admission]
+  - name: org.data.classification
+    source: organization
+    purpose: Highest expected sensitivity for emitted telemetry.
+    cardinality: bounded
+    allowedValues: [public, internal, confidential, restricted]
+    owner: security-observability
+    enforcement: [schema, ci, admission, runtime]
+

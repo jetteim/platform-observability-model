@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/platform-observability/semantic-convention-registry.schema.json",
+  "title": "Semantic Convention Registry",
+  "type": "object",
+  "required": ["version", "attributes"],
+  "properties": {
+    "version": { "type": "string" },
+    "attributes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "source", "purpose", "cardinality", "owner", "enforcement"],
+        "properties": {
+          "name": { "type": "string" },
+          "source": { "enum": ["opentelemetry", "organization"] },
+          "purpose": { "type": "string" },
+          "cardinality": { "enum": ["low", "bounded", "high"] },
+          "allowedValues": { "type": "array", "items": { "type": "string" } },
+          "owner": { "type": "string" },
+          "enforcement": {
+            "type": "array",
+            "items": { "enum": ["schema", "ci", "helm", "admission", "runtime"] }
+          }
+        }
+      }
+    }
+  }
+}
+

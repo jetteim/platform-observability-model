@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/platform-observability/decision-dashboard.schema.json",
+  "title": "Decision Dashboard Intent",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "variables", "questions", "panels"],
+  "properties": {
+    "apiVersion": { "const": "observability.platform/v1alpha1" },
+    "kind": { "const": "DecisionDashboard" },
+    "metadata": {
+      "type": "object",
+      "required": ["name"],
+      "properties": { "name": { "type": "string" } }
+    },
+    "variables": { "type": "array", "items": { "type": "string" } },
+    "questions": { "type": "array", "items": { "type": "string" } },
+    "panels": { "type": "array", "items": { "type": "string" } }
+  }
+}
+

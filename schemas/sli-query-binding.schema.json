@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/platform-observability/sli-query-binding.schema.json",
+  "title": "SLI Query Binding",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "signal", "query", "backendTarget"],
+  "properties": {
+    "apiVersion": { "const": "observability.platform/v1alpha1" },
+    "kind": { "const": "SLIQueryBinding" },
+    "metadata": {
+      "type": "object",
+      "required": ["name"],
+      "properties": { "name": { "type": "string" } }
+    },
+    "signal": { "enum": ["metric", "span", "log", "rum", "synthetic", "probe"] },
+    "query": {
+      "type": "object",
+      "required": ["numerator", "denominator"],
+      "properties": {
+        "numerator": { "type": "string" },
+        "denominator": { "type": "string" },
+        "groupBy": { "type": "array", "items": { "type": "string" } },
+        "minimumVolume": { "type": "string" }
+      }
+    },
+    "backendTarget": { "type": "string" }
+  }
+}
+

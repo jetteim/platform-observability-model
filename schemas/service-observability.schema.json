@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/platform-observability/service-observability.schema.json",
+  "title": "Service Observability Intent",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "service", "ownership", "telemetry"],
+  "properties": {
+    "apiVersion": { "const": "observability.platform/v1alpha1" },
+    "kind": { "const": "ServiceObservability" },
+    "metadata": {
+      "type": "object",
+      "required": ["name"],
+      "properties": { "name": { "type": "string" } }
+    },
+    "service": {
+      "type": "object",
+      "required": ["namespace", "name", "environment", "criticality"],
+      "properties": {
+        "namespace": { "type": "string" },
+        "name": { "type": "string" },
+        "environment": { "type": "string" },
+        "criticality": { "type": "string" },
+        "userJourneys": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "ownership": {
+      "type": "object",
+      "required": ["team", "routingKey"],
+      "properties": {
+        "team": { "type": "string" },
+        "routingKey": { "type": "string" },
+        "costCenter": { "type": "string" }
+      }
+    },
+    "telemetry": {
+      "type": "object",
+      "required": ["tier", "dataClassification"],
+      "properties": {
+        "tier": { "type": "string" },
+        "dataClassification": { "type": "string" }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,29 @@
+apiVersion: observability.platform/v1alpha1
+kind: FeaturedAlert
+metadata:
+  name: exposed-route-has-no-ready-backend
+classification: alert
+criteria:
+  - Traffic entry point resolves to zero ready backends.
+  - User traffic is blocked or highly likely to be blocked.
+  - Owner, playbook, and dashboard are known.
+context:
+  - application
+  - service
+  - environment
+  - namespace
+  - route
+  - host
+  - path
+  - workload
+  - team
+  - desired_replicas
+  - ready_replicas
+  - last_known_healthy_time
+  - deployment_id
+  - service_version
+  - recent_changes
+  - platform_events
+dashboard: route-backend-readiness-decision-dashboard
+playbook: route-has-no-ready-backend
+

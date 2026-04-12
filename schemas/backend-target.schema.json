@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/platform-observability/backend-target.schema.json",
+  "title": "Backend Target",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "capabilities"],
+  "properties": {
+    "apiVersion": { "const": "observability.platform/v1alpha1" },
+    "kind": { "const": "BackendTarget" },
+    "metadata": {
+      "type": "object",
+      "required": ["name"],
+      "properties": { "name": { "type": "string" } }
+    },
+    "capabilities": {
+      "type": "array",
+      "items": { "enum": ["metrics", "traces", "logs", "rum", "dashboards", "alerts", "api", "iac"] }
+    }
+  }
+}
+
