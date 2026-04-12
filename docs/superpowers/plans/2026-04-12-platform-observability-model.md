@@ -72,7 +72,7 @@ Expected: examples parse as YAML and demonstrate the intended contracts.
 
 Expected: script checks required files, JSON parsing, YAML parsing, and vendor neutrality for intention docs.
 
-- [ ] **Step 2: Run validation**
+- [x] **Step 2: Run validation**
 
 Run: `./scripts/validate.sh`
 
@@ -88,17 +88,16 @@ Expected: `validation ok`.
 - Modify: `platform-workstation-bootstrap/docs/skill-trigger-examples.md`
 - Modify: `platform-workstation-bootstrap/README.md`
 
-- [ ] **Step 1: Create the public skill repo**
+- [x] **Step 1: Create the public skill repo**
 
 Expected: skill describes reusable observability engineering, not this one repo scan.
 
-- [ ] **Step 2: Add bootstrap install support**
+- [x] **Step 2: Add bootstrap install support**
 
 Expected: clean workstation refreshes the private model repo and public skill repo, then installs the skill.
 
-- [ ] **Step 3: Verify bootstrap**
+- [x] **Step 3: Verify bootstrap**
 
 Run: `./scripts/verify.sh`
 
 Expected: bootstrap verification passes.
-
