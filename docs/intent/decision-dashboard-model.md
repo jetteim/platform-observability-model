@@ -28,6 +28,7 @@ Each dashboard should answer:
 - Are users seeing errors, latency, or frustration?
 - Is the SLO burning?
 - Which dependency or platform layer is most likely involved?
+- Is telemetry missing, delayed, sampled away, or dropped?
 - Which playbook action applies?
 
 ## Dashboard Output Contract
@@ -41,4 +42,3 @@ Dashboard definitions are generated artifacts. The source intent should define:
 - required decision panels
 - backend target
 - generated artifact location
-

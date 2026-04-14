@@ -18,6 +18,33 @@ platform:
     - helm
     - admission
     - runtime
+  metadataCoverage:
+    required:
+      - platform
+      - cluster
+      - namespace
+      - workload
+      - owner
+      - environment
+      - route
+      - version
+      - change
+    purpose: filtering, routing, topology correlation, and decision dashboard scoping
+  signalLayers:
+    - platform
+    - cluster
+    - namespace
+    - node
+    - workload
+    - pod
+    - container
+    - route
+    - network
+    - telemetry-pipeline
+    - policy
+    - event
+    - inventory
+    - change
 signals:
   - workload_health
   - route_backend_readiness
@@ -25,4 +52,33 @@ signals:
   - control_plane_health
   - telemetry_pipeline_health
   - policy_drift
-
+  - event_inventory_health
+  - topology_correlation
+telemetryPipeline:
+  purpose: telemetry pipeline health
+  requiredSignals:
+    - collector health
+    - receiver health
+    - queue pressure
+    - dropped metrics
+    - dropped logs
+    - dropped spans
+    - exporter errors
+    - backend delivery freshness
+alertContext:
+  contract: infrastructure alert context contract
+  required:
+    - identity
+    - ownership
+    - impact
+    - current state
+    - change context
+    - technical evidence
+    - decision support
+decisionDashboards:
+  requiredQuestions:
+    - Is the platform able to host and route workloads?
+    - Is the issue isolated or platform-wide?
+    - Did a rollout, config, autoscaling, policy, node, or route change precede it?
+    - Are application SLOs or user journeys affected?
+    - Is telemetry missing, delayed, or dropped?

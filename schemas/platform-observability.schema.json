@@ -17,13 +17,40 @@
       "required": ["topology", "enforcement"],
       "properties": {
         "topology": { "type": "array", "items": { "type": "string" } },
-        "enforcement": { "type": "array", "items": { "type": "string" } }
+        "enforcement": { "type": "array", "items": { "type": "string" } },
+        "metadataCoverage": {
+          "type": "object",
+          "required": ["required", "purpose"],
+          "properties": {
+            "required": { "type": "array", "items": { "type": "string" } },
+            "purpose": { "type": "string" }
+          }
+        },
+        "signalLayers": { "type": "array", "items": { "type": "string" } }
       }
     },
     "signals": {
       "type": "array",
       "items": { "type": "string" }
+    },
+    "telemetryPipeline": {
+      "type": "object",
+      "properties": {
+        "requiredSignals": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "alertContext": {
+      "type": "object",
+      "properties": {
+        "contract": { "type": "string" },
+        "required": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "decisionDashboards": {
+      "type": "object",
+      "properties": {
+        "requiredQuestions": { "type": "array", "items": { "type": "string" } }
+      }
     }
   }
 }
-

@@ -6,7 +6,7 @@ This repository documents the intended operating model first. Backend-specific m
 
 ## Scope
 
-- Infra observability for Kubernetes platforms.
+- Infra observability for Kubernetes platforms, including signal layers, metadata coverage, topology correlation, telemetry pipeline health, and infrastructure alert context.
 - Application observability for services, user journeys, and releases.
 - OpenTelemetry semantic conventions plus organization-wide extensions.
 - Alert context contracts and decision dashboards.
@@ -34,4 +34,5 @@ The validator checks that required model files exist, JSON schemas parse, YAML e
 
 ## Usage Scenarios
 
+- [Infra Observability Readiness](docs/usage-scenarios/infra-observability-readiness.md) shows how an agent should use the model to prepare or review infrastructure observability.
 - [Service Onboarding To Observability](docs/usage-scenarios/service-onboarding-to-observability.md) shows how an agent should use the model to prepare service observability while keeping human approval gates explicit.

@@ -12,6 +12,7 @@ Infra observability covers the shared platform surface:
 - Shared platform add-ons and admission policy health.
 
 Infra observability answers whether the platform can host and route workloads safely.
+It must also prove whether missing or degraded telemetry is a platform, pipeline, backend, or instrumentation problem before responders trust apparent health.
 
 ## Application Observability
 
@@ -29,4 +30,3 @@ Application observability answers whether users and consumers are receiving the 
 ## Shared Boundary
 
 The boundary is crossed deliberately. Infra telemetry can produce application featured alerts when it proves direct or highly probable service impact. Application telemetry can identify platform risk when the symptom points to routing, scheduling, DNS, certificates, storage, or telemetry pipeline failure.
-

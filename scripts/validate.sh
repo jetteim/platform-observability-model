@@ -23,6 +23,7 @@ required_files=(
   docs/migration/sre-rules-seed.md
   docs/migration/sre-rules-to-slo-intents.md
   docs/sources/source-scan-summary.md
+  docs/usage-scenarios/infra-observability-readiness.md
   docs/usage-scenarios/service-onboarding-to-observability.md
 )
 
@@ -55,5 +56,10 @@ grep -R "org.team.name" examples/semantic-conventions.yaml >/dev/null
 grep -R "classification: alert" examples/application-featured-alerts.yaml >/dev/null
 grep -R "dashboard:" examples/application-featured-alerts.yaml >/dev/null
 grep -R "playbook:" examples/application-featured-alerts.yaml >/dev/null
+grep -R "infrastructure alert context contract" docs/intent/infra-observability.md docs/usage-scenarios/infra-observability-readiness.md >/dev/null
+grep -R "topology correlation" docs/intent/infra-observability.md docs/usage-scenarios/infra-observability-readiness.md >/dev/null
+grep -R "telemetry pipeline health" docs/intent/infra-observability.md examples/platform-observability.yaml >/dev/null
+grep -R "collector health" examples/platform-observability.yaml >/dev/null
+grep -R "metadata coverage" docs/usage-scenarios/infra-observability-readiness.md >/dev/null
 
 echo "validation ok"

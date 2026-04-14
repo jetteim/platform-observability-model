@@ -21,3 +21,10 @@ Local repositories under `NEW_WORK` were scanned as evidence for this model.
 - Job failures become notifications unless they declare freshness/completion SLO impact.
 - Dashboards become incident decision surfaces, not manual overview loops.
 
+## External Practice Scan
+
+- Elastic Kubernetes observability guidance treats Kubernetes telemetry as unified logs, metrics, and traces, then layers visualization, logs, metrics, alerts, and anomaly detection into the workflow.
+- Datadog OpenTelemetry Kubernetes guidance separates cluster-wide collection from node-local collection and uses kube-state-metrics for object state such as deployments, nodes, and pods.
+- Datadog correlation guidance uses standard service identity attributes so application telemetry can connect to infrastructure metrics.
+- OpenTelemetry Kubernetes resource conventions recommend preserving object UIDs because names can be reused while UIDs are stable across time.
+- New Relic infrastructure guidance emphasizes broad environment coverage, metadata-driven filtering, dynamic tag-scoped alerting, host grouping, and infrastructure data shown alongside application data.
