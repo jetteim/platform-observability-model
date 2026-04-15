@@ -8,7 +8,7 @@ This scenario shows how an agent should prepare or review infrastructure observa
 - topology inventory for platform, clusters, namespaces, nodes, workloads, pods, containers, routes, and shared dependencies
 - OpenTelemetry resource attributes, platform labels, and metadata propagation rules
 - existing metrics, logs, traces, events, inventory, synthetics, probes, and change records
-- telemetry collector, receiver, processor, queue, exporter, sampling, and backend ingestion configuration
+- telemetry collector, source, receiver, processor, queue, buffer, exporter, sampling, acknowledgement, and backend ingestion configuration
 - existing alerts, notifications, dashboards, playbooks, SLO bindings, and generated artifacts
 - CI, Helm, admission policy, and runtime validation paths
 - data security, cardinality, retention, and cost-control constraints
@@ -20,6 +20,7 @@ This scenario shows how an agent should prepare or review infrastructure observa
 - metadata coverage assessment
 - topology correlation requirements
 - telemetry pipeline health requirements
+- telemetry pipeline topology, component contract, delivery policy, buffer policy, and validation requirements
 - infrastructure alert context contract
 - decision dashboard intent
 - alert, notification, and finding classifications
@@ -32,7 +33,7 @@ This scenario shows how an agent should prepare or review infrastructure observa
 2. Inventory signal coverage by layer: platform, cluster, namespace, node, workload, pod, container, route, network, telemetry pipeline, policy, event, inventory, and change.
 3. Check metadata coverage for stable identity, human-readable names, owner, environment, workload, route, node, cluster, version, and change context.
 4. Define topology correlation so metrics, logs, traces, events, inventory, and dashboards can pivot across the same affected entity.
-5. Define telemetry pipeline health for collectors, receivers, processors, queues, exporters, sampling, dropped data, data freshness, and backend delivery.
+5. Define telemetry pipeline topology and health for sources, collectors, receivers, processors, routing, queues, buffers, exporters, sampling, acknowledgements, dropped data, data freshness, and backend delivery.
 6. Separate platform symptoms from application impact. Promote infrastructure alerts to page-worthy only when impact, owner, action, playbook, and decision dashboard are complete.
 7. Define notifications for early warning, capacity planning, telemetry quality, and drift that do not require immediate human action.
 8. Define findings for standards, policy, metadata, cardinality, security, and cost-control drift.
@@ -44,7 +45,7 @@ This scenario shows how an agent should prepare or review infrastructure observa
 - The design starts from backend monitor syntax instead of infrastructure intent.
 - Page-worthy alerts lack owner, impact, playbook, current state, change context, or scoped dashboard.
 - Dynamic infrastructure lacks metadata coverage for filtering, routing, or topology correlation.
-- Telemetry pipeline health is absent, so missing data cannot be distinguished from healthy infrastructure.
+- Telemetry pipeline topology or health is absent, so missing data cannot be distinguished from healthy infrastructure.
 - Infrastructure symptoms are treated as application impact without supporting route, workload, SLO, or user evidence.
 - High-cardinality attributes are required for resource identity without an event-only exception or cost-control plan.
 
@@ -53,13 +54,14 @@ This scenario shows how an agent should prepare or review infrastructure observa
 - Confirm platform owner, escalation, and support expectations.
 - Confirm topology boundaries and required metadata.
 - Confirm signal coverage and instrumentation gaps.
+- Confirm telemetry pipeline delivery, buffering, validation, and self-observability trade-offs.
 - Confirm alert, notification, and finding classifications.
 - Confirm dashboard questions and playbook actions.
 - Confirm cardinality, retention, and data security constraints.
 
 ## Completion Criteria
 
-- platform observability defines topology, signal layers, metadata coverage, telemetry pipeline health, enforcement, and generated artifact targets
+- platform observability defines topology, signal layers, metadata coverage, telemetry pipeline topology and health, enforcement, and generated artifact targets
 - every page-worthy infrastructure alert satisfies the infrastructure alert context contract
 - every notification and finding has owner, evidence, and backlog or review handling
 - dashboards open from alert dimensions and do not require manual overview browsing

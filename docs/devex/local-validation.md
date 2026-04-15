@@ -10,6 +10,6 @@ Minimum checks:
 - examples include stable service identity
 - intent docs remain backend-neutral
 - alert examples include context, dashboard, owner, and playbook
+- telemetry pipeline examples include source-to-sink lineage, transformation tests, delivery policy, and buffer behavior
 
 Local validation is not a replacement for backend-specific dry runs. It protects the model contract before generation begins.
-

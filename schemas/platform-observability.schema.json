@@ -36,7 +36,36 @@
     "telemetryPipeline": {
       "type": "object",
       "properties": {
-        "requiredSignals": { "type": "array", "items": { "type": "string" } }
+        "requiredSignals": { "type": "array", "items": { "type": "string" } },
+        "topology": {
+          "type": "object",
+          "properties": {
+            "sources": { "type": "array", "items": { "type": "string" } },
+            "processors": { "type": "array", "items": { "type": "string" } },
+            "sinks": { "type": "array", "items": { "type": "string" } },
+            "lineageRequired": { "type": "boolean" }
+          }
+        },
+        "deliveryPolicy": {
+          "type": "object",
+          "properties": {
+            "default": { "type": "string" },
+            "incidentCritical": { "type": "string" },
+            "acknowledgementRequiredFor": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "bufferPolicy": {
+          "type": "object",
+          "properties": {
+            "defaultWhenFull": { "type": "string" },
+            "durableFor": { "type": "array", "items": { "type": "string" } },
+            "signals": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "validation": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
       }
     },
     "alertContext": {

@@ -15,6 +15,7 @@ required_files=(
   docs/intent/slo-and-error-budget-model.md
   docs/intent/backend-generation-model.md
   docs/intent/data-security-and-cost-controls.md
+  docs/intent/telemetry-pipeline-model.md
   docs/devex/developer-journey.md
   docs/devex/local-validation.md
   docs/devex/ci-validation.md
@@ -60,6 +61,11 @@ grep -R "infrastructure alert context contract" docs/intent/infra-observability.
 grep -R "topology correlation" docs/intent/infra-observability.md docs/usage-scenarios/infra-observability-readiness.md >/dev/null
 grep -R "telemetry pipeline health" docs/intent/infra-observability.md examples/platform-observability.yaml >/dev/null
 grep -R "collector health" examples/platform-observability.yaml >/dev/null
+grep -R "source-to-sink lineage" docs/intent/telemetry-pipeline-model.md docs/devex/local-validation.md >/dev/null
+grep -R "Define Telemetry Pipeline Requirements" docs/usage-scenarios/service-onboarding-to-observability.md >/dev/null
+grep -R "telemetry pipeline contracts" docs/devex/developer-journey.md >/dev/null
+grep -R "delivery policy" docs/intent/telemetry-pipeline-model.md examples/platform-observability.yaml >/dev/null
+grep -R "buffer policy" docs/intent/telemetry-pipeline-model.md examples/platform-observability.yaml >/dev/null
 grep -R "metadata coverage" docs/usage-scenarios/infra-observability-readiness.md >/dev/null
 
 echo "validation ok"

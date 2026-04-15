@@ -28,3 +28,4 @@ Local repositories under `NEW_WORK` were scanned as evidence for this model.
 - Datadog correlation guidance uses standard service identity attributes so application telemetry can connect to infrastructure metrics.
 - OpenTelemetry Kubernetes resource conventions recommend preserving object UIDs because names can be reused while UIDs are stable across time.
 - New Relic infrastructure guidance emphasizes broad environment coverage, metadata-driven filtering, dynamic tag-scoped alerting, host grouping, and infrastructure data shown alongside application data.
+- Vector documentation contributed portable pipeline concepts: directed acyclic source-transform-sink topology, compile-time and command-line validation, transformation unit tests, internal pipeline logs and metrics, explicit buffer/backpressure behavior, end-to-end acknowledgement, delivery guarantee labels, and cardinality-limit transforms.

@@ -14,6 +14,7 @@ The desired result is a set of neutral intent objects that can generate backend-
 - semantic convention registry updates
 - SLO intent
 - telemetry query bindings
+- telemetry pipeline requirements when collection, transformation, routing, buffering, or delivery affects the service contract
 - alert and notification intent
 - decision dashboard intent
 - generated artifact manifest
@@ -32,6 +33,7 @@ The human review should answer:
 - Which signals should become notifications or findings?
 - What context must be present before a page is valid?
 - Which dashboard decisions should be possible without manual exploration?
+- Does the telemetry path need durable delivery, acknowledgement, buffering, fallback, quarantine, or transformation tests?
 - Which backend artifacts should be generated after intent is approved?
 
 ## Agent Task Contract
@@ -44,6 +46,7 @@ Inputs:
 - Kubernetes manifests, Helm values, or rendered workload resources
 - route, ingress, gateway, service, and endpoint configuration
 - existing telemetry samples or backend queries
+- telemetry collector, source, processor, route, buffer, exporter, and backend delivery configuration when available
 - existing monitors, dashboards, rules, and playbooks
 - CI workflows and validation scripts
 - admission policy or semantic convention enforcement artifacts
@@ -54,6 +57,7 @@ Outputs:
 - `SemanticConventionRegistry` updates
 - `SLOIntent`
 - `SLIQueryBinding`
+- telemetry pipeline requirements or generation gaps
 - `FeaturedAlert`, `NotificationIntent`, or `Finding`
 - `DecisionDashboardIntent`
 - `GeneratedArtifactManifest`
@@ -66,6 +70,7 @@ Refusal conditions:
 - Do not define an SLO as complete when no telemetry binding exists.
 - Do not invent telemetry that is not present.
 - Do not make vendor tags the source of truth.
+- Do not treat pipeline transformations, buffers, or delivery behavior as safe when they can remove, delay, duplicate, or misroute SLO telemetry.
 - Do not promote job failures, restarts, telemetry drift, or partial replica loss to alerts unless the model proves immediate user or service impact.
 
 ## Workflow
@@ -218,7 +223,48 @@ Human review gate:
 - Confirm exclusions and minimum volume rules.
 - Confirm gaps before creating backend artifacts.
 
-### 6. Classify Alerts, Notifications, And Findings
+### 6. Define Telemetry Pipeline Requirements
+
+When service telemetry depends on collectors, routing, transformations, buffering, or fallback delivery, define the pipeline contract before generating backend artifacts:
+
+```yaml
+telemetryPipeline:
+  sources:
+    - checkout-api OpenTelemetry exporter
+    - checkout-api structured logs
+  processors:
+    - service identity normalization
+    - data classification redaction
+    - request outcome metric shaping
+  sinks:
+    - primary telemetry backend
+    - incident-critical fallback path
+  deliveryPolicy:
+    availabilitySloTelemetry: durable with retry or explicit generation gap
+    diagnosticLogs: best-effort unless needed for incident response
+  bufferPolicy:
+    whenFull: block or sample before dropping SLO telemetry
+    selfObservability:
+      - queue depth
+      - oldest buffered item age
+      - dropped records
+      - sink delivery failures
+  validation:
+    - topology validation
+    - transformation unit tests
+    - redaction tests
+    - cardinality-limit tests
+```
+
+If the telemetry path is unknown, record a generation gap instead of assuming the backend query is trustworthy.
+
+Human review gate:
+
+- Confirm source-to-sink lineage for SLO and alert evidence.
+- Confirm delivery, buffering, redaction, and cardinality trade-offs.
+- Confirm pipeline self-observability can distinguish missing telemetry from healthy service behavior.
+
+### 7. Classify Alerts, Notifications, And Findings
 
 Use the model taxonomy:
 
@@ -248,7 +294,7 @@ Human review gate:
 - Confirm notifications are not hidden alerts.
 - Confirm findings have DevEx or policy remediation paths.
 
-### 7. Attach Alert Context
+### 8. Attach Alert Context
 
 Every alert must include the full context contract:
 
@@ -294,7 +340,7 @@ Human review gate:
 - Confirm the alert message is enough to decide the first action.
 - Confirm the playbook action exists or the alert is marked as a first-time problem.
 
-### 8. Define Dynamic Decision Dashboard
+### 9. Define Dynamic Decision Dashboard
 
 The alert should open a dashboard already scoped to the incident:
 
@@ -333,7 +379,7 @@ Human review gate:
 
 - Confirm the dashboard answers decisions rather than showing generic overview charts.
 
-### 9. Generate Backend Artifacts
+### 10. Generate Backend Artifacts
 
 Only after intent is reviewed should an agent generate backend-specific outputs:
 
@@ -353,6 +399,12 @@ artifacts:
   - type: admission-policy
     path: generated/policies/semantic-attributes.yaml
     backendTarget: generic-admission-controller
+  - type: telemetry-pipeline
+    path: generated/pipelines/checkout-api-telemetry.yaml
+    backendTarget: generic-pipeline-engine
+  - type: pipeline-test
+    path: generated/pipelines/checkout-api-telemetry-test.yaml
+    backendTarget: generic-pipeline-engine
 ```
 
 Human review gate:
@@ -360,7 +412,7 @@ Human review gate:
 - Confirm generated outputs trace back to source intent.
 - Confirm backend-specific limitations are documented.
 
-### 10. Enforce Through DevEx
+### 11. Enforce Through DevEx
 
 Apply enforcement in layers:
 
@@ -375,6 +427,7 @@ Expected checks:
 - Serving workloads have owner and criticality.
 - Alerts include context, dashboard, and playbook.
 - SLOs have telemetry bindings or instrumentation gaps.
+- Pipeline topology, transformations, delivery policy, buffer policy, and redaction behavior have validation.
 - Generated artifacts are reproducible from intent.
 
 Human review gate:
@@ -392,6 +445,7 @@ The service is onboarded when:
 - page-worthy alerts include full context
 - decision dashboards open scoped from alert dimensions
 - generated backend artifacts trace to source intent
+- telemetry pipeline requirements or gaps are explicit for SLO and alert evidence
 - local and CI validation paths exist
 
 ## Notes For SRE Rules Migration
@@ -399,4 +453,3 @@ The service is onboarded when:
 This scenario also defines the target shape for migrating existing SRE rules. A legacy rule should become an SLO, alert, notification, finding, dashboard, or generated artifact only after its intent is clear.
 
 Do not migrate old rules one-to-one. Reclassify them by user impact, actionability, owner, telemetry binding, and decision context.
-

@@ -8,7 +8,7 @@ Infra observability is the platform provider's contract for running workloads.
 - Routing health: route to service to endpoint readiness, ingress and egress reachability, DNS or discovery health, certificate expiry, and zero-ready-backend detection.
 - Capacity health: CPU, memory, storage, network, pod density, quota, allocation, saturation, throttling, eviction pressure, and autoscaling headroom.
 - Control health: scheduler, controller, admission, reconciliation, API availability, API latency, rollout status, and configuration convergence.
-- Telemetry pipeline health: collector health, receiver health, queue pressure, batch age, dropped spans/logs/metrics, exporter errors, sampling state, and backend delivery.
+- Telemetry pipeline health: collector health, source health, receiver health, processor health, queue pressure, buffer age, dropped spans/logs/metrics, redaction failures, cardinality-limit actions, exporter errors, acknowledgement status, sampling state, and backend delivery.
 - Policy health: failed mutations, failed validations, bypasses, exception drift, semantic convention drift, and data security or cost-control drift.
 - Event and inventory health: platform events, change events, object inventory, lifecycle transitions, and metadata coverage for topology correlation.
 - Correlation health: ability to move from platform symptom to workload, owner, route, release, SLO, logs, metrics, traces, and related events without manual tag guessing.
@@ -30,7 +30,7 @@ Infra observability should define coverage for each layer separately:
 - workload: desired versus available state, rollout progress, replica health, restart patterns, probe failures, scheduling failures, and autoscaler behavior
 - pod and container: lifecycle state, termination reason, resource requests and limits, throttling, OOM, filesystem, image pull, and probe state
 - route and network: route, service, endpoint, ingress, egress, DNS, certificate, and dependency reachability
-- telemetry pipeline: collection, transformation, queueing, sampling, export, backend ingestion, and data freshness
+- telemetry pipeline: collection, transformation, routing, buffering, backpressure, sampling, acknowledgement, export, backend ingestion, and data freshness
 - policy and enforcement: semantic attributes, admission decisions, mutation status, validation status, exceptions, and drift
 
 ## Topology Correlation
@@ -64,6 +64,7 @@ Do not page on isolated restarts, node pressure, collector drops, policy drift, 
 An infra observability design is ready when:
 
 - every signal layer has collection, freshness, ownership, and cardinality expectations
+- telemetry pipeline topology, component contracts, delivery policy, buffer policy, self-observability, and validation are explicit
 - metadata coverage supports filtering, aggregation, and alert routing for dynamic infrastructure
 - control-plane, workload, route, capacity, telemetry pipeline, policy, event, inventory, and change signals are represented
 - alerts, notifications, and findings are classified before backend generation

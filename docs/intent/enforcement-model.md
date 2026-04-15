@@ -7,6 +7,7 @@ Semantic conventions and observability intent need layered enforcement.
 - JSON schemas validate intent documents.
 - A semantic convention registry defines allowed org attributes, cardinality, owners, and enforcement points.
 - Examples act as contract tests for services, SLOs, dashboards, and generated artifacts.
+- Pipeline examples define source-to-sink lineage, transformation behavior, delivery policy, and buffer behavior.
 
 ## Local DevEx
 
@@ -23,6 +24,7 @@ Semantic conventions and observability intent need layered enforcement.
 - Validate semantic convention usage.
 - Validate alert context completeness.
 - Optionally export CI workflow traces using OpenTelemetry.
+- Validate generated telemetry pipeline topology and transformation tests before deployment.
 
 ## Admission
 
@@ -40,8 +42,7 @@ Kyverno and Gatekeeper are implementation options. The model describes policy in
 
 - Detect missing telemetry for declared services.
 - Detect semantic convention drift between declared intent and observed telemetry.
-- Alert on telemetry pipeline failure only when incident response would be impaired.
+- Alert on telemetry pipeline failure only when incident response, SLO evaluation, security, audit, or compliance telemetry would be impaired.
 - Notify on policy drift that does not require immediate action.
 - Track cardinality and cost budgets.
 - Enforce redaction and sensitive-data controls at application, collector, and backend layers.
-

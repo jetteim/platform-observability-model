@@ -56,15 +56,65 @@ signals:
   - topology_correlation
 telemetryPipeline:
   purpose: telemetry pipeline health
+  topology:
+    sources:
+      - application telemetry
+      - platform events
+      - object inventory
+      - change records
+      - pipeline self-observability
+    processors:
+      - semantic attribute normalization
+      - redaction
+      - sampling
+      - routing
+      - cardinality limiting
+    sinks:
+      - primary telemetry backend
+      - incident-critical fallback path
+      - quarantine store
+    lineageRequired: true
+  deliveryPolicy:
+    default: best-effort diagnostic telemetry
+    incidentCritical: durable delivery with acknowledgement or explicit backend-generation gap
+    acknowledgementRequiredFor:
+      - SLO evaluation telemetry
+      - audit telemetry
+      - security telemetry
+      - incident-critical pipeline health
+  bufferPolicy:
+    defaultWhenFull: block or sample before dropping incident-critical telemetry
+    durableFor:
+      - SLO evaluation telemetry
+      - audit telemetry
+      - security telemetry
+    signals:
+      - queue depth
+      - buffer bytes
+      - oldest buffered item age
+      - dropped telemetry count
+      - blocked upstream clients
   requiredSignals:
     - collector health
+    - source health
     - receiver health
+    - processor health
     - queue pressure
+    - buffer pressure
     - dropped metrics
     - dropped logs
     - dropped spans
+    - redaction failures
+    - cardinality-limit actions
     - exporter errors
+    - acknowledgement status
     - backend delivery freshness
+  validation:
+    - topology validation
+    - transformation unit tests
+    - redaction tests
+    - cardinality-limit tests
+    - delivery and buffer policy checks
 alertContext:
   contract: infrastructure alert context contract
   required:

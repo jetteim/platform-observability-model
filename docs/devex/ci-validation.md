@@ -12,7 +12,9 @@ Recommended checks:
 - admission policy tests
 - alert context completeness checks
 - generated artifact manifest checks
+- telemetry pipeline topology checks
+- transformation unit tests
+- redaction and cardinality-limit tests
 - optional CI workflow trace export through OpenTelemetry
 
 CI should comment on pull requests when generated observability artifacts change.
-

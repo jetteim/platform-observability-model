@@ -22,3 +22,6 @@ The model assumes a generic Kubernetes-based platform and OpenTelemetry-compatib
 
 Telemetry backend resources, admission policies, Helm snippets, workflow files, and API calls are generated from neutral intent. Hand-authored backend resources are acceptable during migration, but they should be treated as intermediate artifacts.
 
+## Observable Pipelines
+
+Telemetry pipelines are not invisible plumbing. Collection, transformation, buffering, routing, delivery, and pipeline self-observability are part of the model when they affect SLOs, incident response, data security, cost, or backend generation.

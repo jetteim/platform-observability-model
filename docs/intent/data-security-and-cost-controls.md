@@ -10,6 +10,8 @@ Controls should exist at multiple layers:
 - logging libraries
 - OpenTelemetry processors
 - collectors
+- telemetry pipeline transforms
+- pipeline buffers and quarantine paths
 - admission policy
 - backend ingestion filters
 - retention policy
@@ -27,4 +29,4 @@ Cost controls must be part of the model:
 - RUM/session replay sampling
 - telemetry tier by service criticality
 - cardinality and ingestion budget alerts as notifications unless incident response is impaired
-
+- pipeline-level cardinality limits and drop/quarantine behavior for high-risk metric labels
